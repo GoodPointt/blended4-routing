@@ -9,9 +9,15 @@ const regions = [
   { id: 'oceania', value: 'oceania', name: 'Oceania' },
 ];
 
-export const SearchForm = () => {
+export const SearchForm = ({ setQueryFromForm }) => {
+  const onSubmitHandler = e => {
+    e.preventDefault();
+    const { region } = Object.fromEntries(new FormData(e.currentTarget));
+    setQueryFromForm(region);
+  };
+
   return (
-    <SearchFormStyled>
+    <SearchFormStyled onSubmit={onSubmitHandler}>
       <BtnSearch type="submit">
         <FiSearch size="16px" />
       </BtnSearch>
