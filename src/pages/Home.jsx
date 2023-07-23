@@ -14,7 +14,6 @@ export const Home = () => {
       .catch(error => console.log(setIsError(error.message)))
       .finally(() => setIsLoading(false));
   }, []);
-  console.log(isLoading);
   return (
     <Section>
       {isLoading && <Loader />}

@@ -7,19 +7,22 @@ import {
   CountryList,
 } from 'components';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { fetchByRegion } from 'service/country-service';
 
 export const CountrySearch = () => {
   const [countries, setCountries] = useState([]);
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setIsLoading] = useState(false);
 
   const setQueryFromForm = serachTerm => {
     if (!serachTerm.length) return;
-    setQuery(serachTerm);
+    setSearchParams({ query: serachTerm }
+    );
   };
 
   useEffect(() => {
+    const query = searchParams.get("query")
     if (!query) return;
     const getRegion = async () => {
       try {
@@ -33,7 +36,7 @@ export const CountrySearch = () => {
       }
     };
     getRegion();
-  }, [query]);
+  }, [searchParams]);
 
   return (
     <Section>
